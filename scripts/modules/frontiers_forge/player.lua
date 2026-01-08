@@ -20,6 +20,10 @@ function Player.GetExp()
     return Util.ReadFromOffset(player_offset + 0x28, "uint32_t")
 end
 
+function Player.GetExpDebt()
+    return Util.ReadFromOffset(player_offset + 0x2C, "uint32_t")
+end
+
 function Player.GetTotalStr()
     return Util.ReadFromOffset(player_offset + 0x64, "uint32_t")
 end
@@ -102,6 +106,54 @@ end
 
 function Player.GetAc()
     return Util.ReadFromOffset(player_offset + 0x9C, "uint32_t")
+end
+
+function Player.GetBaseResist()
+    local wisdom = Player.GetTotalWis()
+
+    -- Every 7 wisdom gives +1 resist
+    local bonus = math.floor(wisdom / 7)
+
+    -- Final resist = 40 + bonus
+    local total = 40 + bonus
+
+    return total
+end
+
+function Player.GetPoisonResistBuff()
+    return Util.ReadFromOffset(player_offset + 0xBC, "uint32_t")
+end
+
+function Player.GetDiseaseResistBuff()
+    return Util.ReadFromOffset(player_offset + 0xC0, "uint32_t")
+end
+
+function Player.GetFireResistBuff()
+    return Util.ReadFromOffset(player_offset + 0xC4, "uint32_t")
+end
+
+function Player.GetColdResistBuff()
+    return Util.ReadFromOffset(player_offset + 0xC8, "uint32_t")
+end
+
+function Player.GetLightningResistBuff()
+    return Util.ReadFromOffset(player_offset + 0xCC, "uint32_t")
+end
+
+function Player.GetArcaneResistBuff()
+    return Util.ReadFromOffset(player_offset + 0xD0, "uint32_t")
+end
+
+function Player.GetCMs()
+    return Util.ReadFromOffset(0x1FFE394, "uint32_t")
+end
+
+function Player.GetCMsSpent()
+    return Util.ReadFromOffset(0x1FFE398, "uint32_t")
+end
+
+function Player.GetCMPct()
+    return Util.ReadFromOffset(0x1FFE390, "uint32_t")
 end
 
 function Player.GetCoordinates()
